@@ -1,0 +1,33 @@
+<div>{{this.city}}</div>
+<input type="text" class="form-control" id="name"
+       required
+       [(ngModel)]="city" >
+
+
+<div class="container">
+
+  <button type="button" (click)="getWeatherData()">Button</button>
+</div>
+
+<div id="divWeatherMain">
+
+  <div class="weatherWidgetRow"> <img src="http://openweathermap.org/img/wn/{{WeatherData.weather[0].icon}}@2x.png" width="100" height="100" ></div>
+  <div class="weatherWidgetRow" style="font-size: 32px;margin-top: 5px;">{{WeatherData.temp_celcius}}°</div>
+  <div class="weatherWidgetRow" style="font-size: 12px;">{{WeatherData.temp_min}}° / {{WeatherData.temp_max}}°</div>
+  <div class="weatherWidgetRow" style="font-size: 12px;">Feels Like: {{WeatherData.temp_feels_like}}°</div>
+  <div class="weatherWidgetRow" style="font-size: 25px;margin-top: 10px;">{{WeatherData.name}}</div>
+  <div class="weatherWidgetRow" style="font-size: 25px;margin-top: 10px;">{{WeatherData.sys.country}}</div>
+  <div class="weatherWidgetRow" style="font-size: 12px;">Humidity: {{WeatherData.main.humidity}}%</div>
+  <div class="weatherWidgetRow" style="font-size: 12px;">Pressure: {{WeatherData.main.pressure}}</div>
+  <div class="weatherWidgetRow" style="font-size: 12px;">Clouds coverage: {{WeatherData.clouds.all}}</div>
+  <div class="weatherWidgetRow" style="font-size: 12px;">Wind : {{WeatherData.wind.speed}}</div>
+  <div class="weatherWidgetRow" style="font-size: 12px;">Wind deg : {{WeatherData.wind.deg}}</div>
+  <div class="weatherWidgetRow" style="font-size: 12px;">Visibility : {{WeatherData.visibility}} meters</div>
+  <div class="weatherWidgetRow" style="font-size: 12px;">Main : {{WeatherData.weather[0].main}}</div>
+  <div class="weatherWidgetRow" style="font-size: 12px;">description : {{WeatherData.weather[0].description}}</div>
+
+
+</div>
+
+<app-pexel></app-pexel>
+
