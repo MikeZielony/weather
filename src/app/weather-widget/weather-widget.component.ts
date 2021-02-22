@@ -1,4 +1,6 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { CommunicationServiceService } from '../communication-service.service';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -6,18 +8,17 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
   templateUrl: './weather-widget.component.html',
   styleUrls: ['./weather-widget.component.css']
 })
-export class WeatherWidgetComponent implements OnInit {
+export class WeatherWidgetComponent implements OnInit, OnDestroy {
 
   WeatherData: any;
   api = '922874ef47ae7c29f21b90b9ece53133';
-  city = 'krakow';
+  city = '';
   icon;
   urlI;
 
-  @Output()
-  public selectedCity: EventEmitter<string> = new EventEmitter<string>();
+  public communicationServiceSubscription: Subscription;
 
-  constructor() {
+  constructor(private _communicationService: CommunicationServiceService) {
   }
 
   ngOnInit() {
@@ -26,12 +27,27 @@ export class WeatherWidgetComponent implements OnInit {
       main: {},
       isDay: true
     };
-    this.getWeatherData();
     console.log(this.WeatherData);
+
+   this.communicationServiceSubscription = this._communicationService.selectedCity$
+     .subscribe(city => {
+       this.city = city;
+       this._getWeatherData();
+     });
+
   }
 
-  getWeatherData() {
-    this.selectedCity.emit(this.city);
+  ngOnDestroy(): void {
+    if(this.communicationServiceSubscription){
+      this.communicationServiceSubscription.unsubscribe();
+    }
+  }
+
+  public castNewCityValue(): void {
+    this._communicationService.selectedCity$.next(this.city);
+  }
+
+  private _getWeatherData() {
     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${this.city}&appid=${this.api}`)
       .then(response => response.json())
       .then(data => {

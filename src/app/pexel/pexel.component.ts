@@ -1,5 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { HttpService } from './services/http.service';
+import { CommunicationServiceService } from '../communication-service.service';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -7,21 +9,28 @@ import { HttpService } from './services/http.service';
   templateUrl: './pexel.component.html',
   styleUrls: ['./pexel.component.css']
 })
-export class PexelComponent {
-  @Input()
-  set city(input: string) {
-    this.searchPhotos(input, 1);
-  };
-
+export class PexelComponent implements OnInit, OnDestroy {
 
   search: string;
   perPage = 1;
   data: string[];
 
-  constructor(private httpService: HttpService) {
-    this.httpService.getData(this.search, this.perPage);
+  public communicationServiceSubscription: Subscription;
+
+  constructor(private httpService: HttpService,
+              private _communicationService: CommunicationServiceService) {
   }
 
+  public ngOnInit(): void {
+    this.communicationServiceSubscription = this._communicationService.selectedCity$
+      .subscribe(city => this.searchPhotos(city, 1))
+  }
+
+  public ngOnDestroy(): void {
+    if(this.communicationServiceSubscription) {
+      this.communicationServiceSubscription.unsubscribe();
+    }
+  }
 
   searchPhotos(search: string, perPage: number) {
     this.httpService.getData(search, perPage).subscribe((data) => {
