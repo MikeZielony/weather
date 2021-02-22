@@ -7,7 +7,7 @@ import {catchError} from 'rxjs/operators';
 
 const httpOptions = {
   headers: new HttpHeaders({
-    Authorization: '563492ad6f91700001000001a82144ddd0284dff8b37a4601967f204 '
+    Authorization: '563492ad6f91700001000001a82144ddd0284dff8b37a4601967f204'
   })
 };
 
