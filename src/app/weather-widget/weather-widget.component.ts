@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 
 @Component({
@@ -13,6 +13,10 @@ export class WeatherWidgetComponent implements OnInit {
   city = 'krakow';
   icon;
   urlI;
+
+  @Output()
+  public selectedCity: EventEmitter<string> = new EventEmitter<string>();
+
   constructor() {
   }
 
@@ -27,6 +31,7 @@ export class WeatherWidgetComponent implements OnInit {
   }
 
   getWeatherData() {
+    this.selectedCity.emit(this.city);
     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${this.city}&appid=${this.api}`)
       .then(response => response.json())
       .then(data => {

@@ -1,8 +1,8 @@
 <h1> Search</h1>
-<div>Miasto : {{this.city}}</div>
+<div>Miasto : {{city}}</div>
 <input type="text" [(ngModel)]="search" placeholder="Search photos...">
 <input type="number" [(ngModel)]="perPage" >
-<button (click)="searchPhotos()">Search</button>
+<button (click)="searchPhotos(search, perPage)">Search</button>
 <ul *ngFor="let d of data">
   <img src="{{d.src.medium}}" alt="{{search}}">
 </ul>

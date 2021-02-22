@@ -1,11 +1,10 @@
-<div>{{this.city}}</div>
+<div>{{city}}</div>
 <input type="text" class="form-control" id="name"
        required
        [(ngModel)]="city" >
 
 
 <div class="container">
-
   <button type="button" (click)="getWeatherData()">Button</button>
 </div>
 
@@ -25,9 +24,5 @@
   <div class="weatherWidgetRow" style="font-size: 12px;">Visibility : {{WeatherData.visibility}} meters</div>
   <div class="weatherWidgetRow" style="font-size: 12px;">Main : {{WeatherData.weather[0].main}}</div>
   <div class="weatherWidgetRow" style="font-size: 12px;">description : {{WeatherData.weather[0].description}}</div>
-
-
 </div>
-
-<app-pexel></app-pexel>
 

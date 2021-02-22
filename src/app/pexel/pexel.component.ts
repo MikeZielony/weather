@@ -1,5 +1,5 @@
-import {Component, Input} from '@angular/core';
-import {HttpService} from '../services/http.service';
+import { Component, Input } from '@angular/core';
+import { HttpService } from './services/http.service';
 
 
 @Component({
@@ -8,7 +8,12 @@ import {HttpService} from '../services/http.service';
   styleUrls: ['./pexel.component.css']
 })
 export class PexelComponent {
-  @Input() city: string;
+  @Input()
+  set city(input: string) {
+    this.searchPhotos(input, 1);
+  };
+
+
   search: string;
   perPage = 1;
   data: string[];
@@ -18,8 +23,8 @@ export class PexelComponent {
   }
 
 
-  searchPhotos() {
-    this.httpService.getData(this.search, this.perPage).subscribe((data) => {
+  searchPhotos(search: string, perPage: number) {
+    this.httpService.getData(search, perPage).subscribe((data) => {
       console.log(data);
       this.data = data.photos;
     }, (error => {
