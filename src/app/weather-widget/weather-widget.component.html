@@ -1,10 +1,8 @@
-<div>{{city}}</div>
+<div class="container">
+  <h2> Weather in : {{city}}</h2>
 <input type="text" class="form-control" id="name"
        required
        [(ngModel)]="city" >
-
-
-<div class="container">
   <button type="button" (click)="getWeatherData()">Button</button>
 </div>
 
